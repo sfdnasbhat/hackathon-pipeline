@@ -17,6 +17,9 @@ spec:
   entrypoint: mypipeline
   templates:
   - name: mypipeline
+    metadata:
+      labels:
+          ai.sap.com/resourcePlan: starter
     steps:
     - - name: mypredictor
         template: mycodeblock1
