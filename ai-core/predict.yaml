@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: predict-pipeline-project # executable id, must be unique across all your workflows (YAML files)
+  annotations:
+    scenarios.ai.sap.com/description: "injest live data to work flow"
+    scenarios.ai.sap.com/name: "duplicacy prediction" # Scenario name should be the use case
+    executables.ai.sap.com/description: "check with live data"
+    executables.ai.sap.com/name: "duplicate records" # Executable name should describe the workflow in the use case
+    artifacts.ai.sap.com/housedataset.kind: "dataset" # Helps in suggesting the kind of inputs that can be attached.
+  labels:
+    scenarios.ai.sap.com/id: "record-duplicate-scenario"
+    ai.sap.com/version: "1.0"
+spec:
+  imagePullSecrets:
+    - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y # your docker registry secret
+  entrypoint: mypipeline
+  templates:
+  - name: mypipeline
+    steps:
+    - - name: mypredictor
+        template: mycodeblock1
+  - name: mycodeblock1
+    inputs:
+      artifacts:  # placeholder for cloud storage attachements
+        - name: newdata # a name for the placeholder
+          path: /app/data/ # where to copy in the Dataset in the Docker image
+    container:
+      image: docker.io/sfdnasbhat/predictor:01 # Your docker image name
+      command: ["/bin/sh", "-c"]
+      env:
+        - name: DT_MAX_DEPTH # name of the environment variable inside Docker container
+          value: "3" # will make it as variable later
+      args:
+        - "python /app/src/main.py"
