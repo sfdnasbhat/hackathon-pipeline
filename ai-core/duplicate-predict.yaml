@@ -4,11 +4,11 @@ metadata:
   name: ai-hackathon-pipeline # executable id, must be unique across all your workflows (YAML files), please modify this to any value (e.g. code-pipeline-12345) if you are not the only user of your SAP AI Core instance.
   annotations:
     scenarios.ai.sap.com/description: "adding custom code from docker"
-    scenarios.ai.sap.com/name: "Ai core - Scenario"
+    scenarios.ai.sap.com/name: "Aicore-Scenario"
     executables.ai.sap.com/description: "Model to predict duplicacy"
     executables.ai.sap.com/name: "Duplcate predict (tfidvectoriser)"
   labels:
-    scenarios.ai.sap.com/id: "ai core -codes"
+    scenarios.ai.sap.com/id: "ai-core-codes"
     ai.sap.com/version: "1.0"
 spec:
   imagePullSecrets:
