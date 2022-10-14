@@ -28,8 +28,8 @@ spec:
     container:
       image: docker.io/sfdnasbhat/predictor:01 # Your docker image name
       command: ["/bin/sh", "-c"]
-      env:
-        - name: DT_MAX_DEPTH # name of the environment variable inside Docker container
-          value: "3" # will make it as variable later
+      #env:
+       # - name: DT_MAX_DEPTH # name of the environment variable inside Docker container
+        #  value: "1" # will make it as variable later
       args:
         - "python /app/src/main.py"
