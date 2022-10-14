@@ -3,12 +3,12 @@ kind: WorkflowTemplate
 metadata:
   name: code-pipeline # executable id, must be unique across all your workflows (YAML files), please modify this to any value (e.g. code-pipeline-12345) if you are not the only user of your SAP AI Core instance.
   annotations:
-    scenarios.ai.sap.com/description: "Tutorial to add custom code to SAP AI Core"
-    scenarios.ai.sap.com/name: "Code (Tutorial)"
-    executables.ai.sap.com/description: "Trains model on median house prices"
-    executables.ai.sap.com/name: "House Price (Sklearn Example)"
+    scenarios.ai.sap.com/description: "adding custom code from docker"
+    scenarios.ai.sap.com/name: "Ai core - Scenario"
+    executables.ai.sap.com/description: "Model to predict duplicacy"
+    executables.ai.sap.com/name: "Duplcate predict (tfidvectoriser)"
   labels:
-    scenarios.ai.sap.com/id: "learning-code"
+    scenarios.ai.sap.com/id: "ai core -codes"
     ai.sap.com/version: "1.0"
 spec:
   imagePullSecrets:
