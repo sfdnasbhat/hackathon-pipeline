@@ -17,20 +17,8 @@ spec:
       - name: newdata # a name for the placeholder
         path: /app/data/ # where to copy in the Dataset in the Docker image
     parameters:
-      - name: first-name # placeholder name
+      - name: firstname # placeholder name
         type: string # required for every parameters
-      - name: last-name # placeholder name
-        type: string # required for every parameters
-      - name: dob # placeholder name
-        type: string # required for every parameters
-      - name: ph-no # placeholder name
-        type: string # required for every parameters
-      - name: address # placeholder name
-        type: string # required for every parameters
-      - name: gender # placeholder name
-        type: string # required for every parameters
-      - name: email
-        type: string
   template:
     apiVersion: "serving.kserve.org/v1beta1"
     metadata:
@@ -59,17 +47,5 @@ spec:
             - name: STORAGE_URI # Required
               value: "{{inputs.artifacts.newdata}}" # Required reference from artifact name, see above
             - name: firstname # different name to avoid confusion
-              value: "{{inputs.parameters.first-name}}"
-            - name: lastname # placeholder name
-              value: "{{inputs.parameters.last-name }}
-            - name: dob # placeholder name
-              value: "{{inputs.parameters.dob}}"
-            - name:phno
-              value: ""{{inputs.parameters.ph-no}}
-            - name:address
-              value:"{{inputs.parameters.address}}"
-            - name:gender
-              value:"{{inputs.parameters.gender}}"
-            - name:email
-              value:"{{inputs.parameters.email}}"
-            
+              value: "{{inputs.parameters.firstname}}"
+           
