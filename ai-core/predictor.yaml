@@ -30,7 +30,7 @@ spec:
     spec: |
       predictor:
         imagePullSecrets:
-          - name: credstutorialrepo   # your docker registry secre
+          - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y   # your docker registry secre
         containers:
         - name: kserve-container
           image: "docker.io/sfdnasbhat/hackathon-repo:latest"
