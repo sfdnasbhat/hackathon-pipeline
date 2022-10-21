@@ -15,7 +15,7 @@ spec:
   inputs:
     artifacts:
       - name: newdata # a name for the placeholder
-          path: /app/data/ # where to copy in the Dataset in the Docker image
+        path: /app/data/ # where to copy in the Dataset in the Docker image
     parameters:
       - firstname: first-name # placeholder name
         type: string # required for every parameters
