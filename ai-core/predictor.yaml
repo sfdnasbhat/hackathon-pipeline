@@ -1,0 +1,75 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: server-pipeline # executable ID, must be unique across your SAP AI Core instance, for example use `server-pipeline-yourname-1234`
+  annotations:  
+    scenarios.ai.sap.com/description: "duplicate prediction"
+    scenarios.ai.sap.com/name: "Duplicate recorde Predction (Tutorial)"
+    executables.ai.sap.com/description: "Create online server to check live duplicate records"
+    executables.ai.sap.com/name: "server"
+    artifacts.ai.sap.com/housepricemodel.kind: "dataset" # Suggest the kind of artifact to input.
+  labels:
+    scenarios.ai.sap.com/id: "predict-duplication"
+    ai.sap.com/version: "1.0"
+spec:
+  inputs:
+    artifacts:
+      - name: newdata # a name for the placeholder
+          path: /app/data/ # where to copy in the Dataset in the Docker image
+    parameters:
+      - firstname: first-name # placeholder name
+        type: string # required for every parameters
+      - Lastname: last-name # placeholder name
+        type: string # required for every parameters
+      - dateofbirth: dob # placeholder name
+        type: string # required for every parameters
+      - phoneNumber: ph-no # placeholder name
+        type: string # required for every parameters
+      - address: address # placeholder name
+        type: string # required for every parameters
+      - gender: gender # placeholder name
+        type: string # required for every parameters
+      - email: email
+        type: string
+  template:
+    apiVersion: "serving.kserve.org/v1beta1"
+    metadata:
+      annotations: |
+        autoscaling.knative.dev/metric: concurrency   # condition when to scale
+        autoscaling.knative.dev/target: 1
+        autoscaling.knative.dev/targetBurstCapacity: 0
+      labels: |
+        ai.sap.com/resourcePlan: starter # computing power
+    spec: |
+      predictor:
+        imagePullSecrets:
+          - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y   # your docker registry secret
+        minReplicas: 1
+        maxReplicas: 5    # how much to scale
+        containers:
+          image: docker.io/sfdnasbhat/hackathon-repo:latest # Your docker image name
+          ports:
+            - containerPort: 9001    # customizable port
+              protocol: TCP
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`
+          env:
+            - name: STORAGE_URI # Required
+              value: "{{inputs.artifacts.newdata}}" # Required reference from artifact name, see above
+            - name: firstname # different name to avoid confusion
+              value: "{{inputs.parameters.first-name}}"
+            - name: lastname # placeholder name
+              value: "{{inputs.parameters.last-name }}
+            - name: dob # placeholder name
+              value: "{{inputs.parameters.dob}}"
+            - name:phno
+              value: ""{{inputs.parameters.ph-no}}
+            - name:address
+              value:"{{inputs.parameters.address}}"
+            - name:gender
+              value:"{{inputs.parameters.gender}}"
+            - name:email
+              value:"{{inputs.parameters.email}}"
+            
