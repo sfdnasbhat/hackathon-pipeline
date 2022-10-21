@@ -17,19 +17,19 @@ spec:
       - name: newdata # a name for the placeholder
         path: /app/data/ # where to copy in the Dataset in the Docker image
     parameters:
-      - firstname: first-name # placeholder name
+      - name: first-name # placeholder name
         type: string # required for every parameters
-      - Lastname: last-name # placeholder name
+      - name: last-name # placeholder name
         type: string # required for every parameters
-      - dateofbirth: dob # placeholder name
+      - name: dob # placeholder name
         type: string # required for every parameters
-      - phoneNumber: ph-no # placeholder name
+      - name: ph-no # placeholder name
         type: string # required for every parameters
-      - address: address # placeholder name
+      - name: address # placeholder name
         type: string # required for every parameters
-      - gender: gender # placeholder name
+      - name: gender # placeholder name
         type: string # required for every parameters
-      - email: email
+      - name: email
         type: string
   template:
     apiVersion: "serving.kserve.org/v1beta1"
