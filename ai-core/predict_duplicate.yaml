@@ -29,7 +29,7 @@ spec:
         - name: newdata # a name for the placeholder
           path: /app/data/ # where to copy in the Dataset in the Docker image
     container:
-      image: docker.io/sfdnasbhat/predictor:01 # Your docker image name
+      image: docker.io/sfdnasbhat/hackathon-repo:latest # Your docker image name
       command: ["/bin/sh", "-c"]
       #env:
        # - name: DT_MAX_DEPTH # name of the environment variable inside Docker container
