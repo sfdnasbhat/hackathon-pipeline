@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: predict-pipeline-project # executable id, must be unique across all your workflows (YAML files)
+  name: predict-duplicate-record # executable id, must be unique across all your workflows (YAML files)
   annotations:
     scenarios.ai.sap.com/description: "injest live data to work flow"
     scenarios.ai.sap.com/name: "duplicacy prediction" # Scenario name should be the use case
