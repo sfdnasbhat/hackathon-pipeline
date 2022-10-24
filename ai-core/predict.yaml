@@ -34,17 +34,17 @@ spec:
  
 - name: kserve-container
   container:
-      image: "docker.io/sfdnasbhat/hackathon-repo:latest"
-      ports:
-          - containerPort: 9001    # customizable port
-            protocol: TCP
-      command: ["/bin/sh", "-c"]
-      args:
-        - >
-          set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`
-      env:
-        - name: STORAGE_URI # Required
-          value: "{{inputs.artifacts.newdata}}" # Required reference from artifact name, see above
-        - name: greetingmessage # different name to avoid confusion
-          value: "{{inputs.parameters.greetmessage}}"
+     image: "docker.io/sfdnasbhat/hackathon-repo:latest"
+     ports:
+         - containerPort: 9001    # customizable port
+           protocol: TCP
+     command: ["/bin/sh", "-c"]
+     args:
+       - >
+         set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`
+     env:
+       - name: STORAGE_URI # Required
+         value: "{{inputs.artifacts.newdata}}" # Required reference from artifact name, see above
+       - name: greetingmessage # different name to avoid confusion
+         value: "{{inputs.parameters.greetmessage}}"
       
