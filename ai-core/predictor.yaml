@@ -20,9 +20,13 @@ spec:
         path: /app/data/ #placeholder name, do not add `-` in value use only alphanumeric chars
     parameters:
       - name: greetmessage # placeholder name
-        type: string # required for every parameters
-        
-  template:
+        type: string # required for every parameters# your docker registry secret
+  entrypoint: mypipeline
+  templates:
+  - name: mypipeline
+    steps:
+    - - name: mypredictor
+        template: mycodeblock1        
     apiVersion: "serving.kserve.org/v1beta1"
 
   imagePullSecrets:
