@@ -32,7 +32,7 @@ spec:
   imagePullSecrets:
     - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y # your docker registry secret
  
-      
+- name: mycodeblock1
   container:
     - name: kserve-container
       image: "docker.io/sfdnasbhat/hackathon-repo:latest"
