@@ -12,40 +12,46 @@ metadata:
     ai.sap.com/version: "1.0"
     scenarios.ai.sap.com/id: record-duplicate-check
   name: predictor-pipeline
-      
-spec:
-  inputs:
-    artifacts:
-      - name: newdata #
-        path: /app/data/ #placeholder name, do not add `-` in value use only alphanumeric chars
-    parameters:
-      - name: greetmessage # placeholder name
-        type: string # required for every parameters# your docker registry secret
+spec: 
   entrypoint: mypipeline
-  templates:
-  - name: mypipeline
-    steps:
-    - - name: mypredictor
-        template: mycodeblock1        
-    apiVersion: "serving.kserve.org/v1beta1"
-
-  imagePullSecrets:
-    - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y # your docker registry secret
- 
-- name: mycodeblock1
-  container:
-    - name: kserve-container
-      image: "docker.io/sfdnasbhat/hackathon-repo:latest"
-      ports:
-          - containerPort: 9001    # customizable port
+  imagePullSecrets: 
+    - 
+      name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y
+    - 
+      container: 
+        args: 
+          - "set -e && echo \"Starting\" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`\n"
+        command: 
+          - /bin/sh
+          - "-c"
+        env: 
+          - 
+            name: STORAGE_URI
+            value: "{{inputs.artifacts.newdata}}"
+          - 
+            name: greetingmessage
+            value: "{{inputs.parameters.greetmessage}}"
+        image: "docker.io/sfdnasbhat/hackathon-repo:latest"
+        ports: 
+          - 
+            containerPort: 9001
             protocol: TCP
-      command: ["/bin/sh", "-c"]
-      args:
-        - >
-          set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`
-      env:
-        - name: STORAGE_URI # Required
-          value: "{{inputs.artifacts.newdata}}" # Required reference from artifact name, see above
-        - name: greetingmessage # different name to avoid confusion
-          value: "{{inputs.parameters.greetmessage}}"
-      
+      name: kserve-container
+  inputs: 
+    artifacts: 
+      - 
+        name: newdata
+        path: /app/data/
+    parameters: 
+      - 
+        name: greetmessage
+        type: string
+  templates: 
+    - 
+      apiVersion: serving.kserve.org/v1beta1
+      name: mypipeline
+      steps: 
+        - 
+          - 
+            name: kserve-container
+            template: mycodeblock1
