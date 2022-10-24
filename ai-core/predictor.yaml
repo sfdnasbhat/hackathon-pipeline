@@ -13,12 +13,9 @@ metadata:
     scenarios.ai.sap.com/id: record-duplicate-check
   name: predictor-pipeline
 spec: 
-  entrypoint: mypipeline
-  imagePullSecrets: 
-    - 
-      name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y
-    - 
-      container: 
+  - 
+    containers: 
+      - 
         args: 
           - "set -e && echo \"Starting\" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`\n"
         command: 
@@ -32,26 +29,23 @@ spec:
             name: greetingmessage
             value: "{{inputs.parameters.greetmessage}}"
         image: "docker.io/sfdnasbhat/hackathon-repo:latest"
+        name: kserve-container
         ports: 
           - 
             containerPort: 9001
             protocol: TCP
-      name: kserve-container
-  inputs: 
-    artifacts: 
+    imagePullSecrets: 
       - 
-        name: newdata
-        path: /app/data/
-    parameters: 
-      - 
-        name: greetmessage
-        type: string
-  templates: 
-    - 
-      apiVersion: serving.kserve.org/v1beta1
-      name: mypipeline
-      steps: 
+        name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y
+    inputs: 
+      artifacts: 
         - 
-          - 
-            name: kserve-container
-            template: mycodeblock1
+          name: newdata
+          path: /app/data/
+      parameters: 
+        - 
+          name: greetmessage
+          type: string
+    name: mycodeblock1
+    template: 
+      apiVersion: serving.kserve.org/v1beta1
