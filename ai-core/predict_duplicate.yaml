@@ -14,13 +14,6 @@ metadata:
 spec:
   #imagePullSecrets:
    # - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y# your docker registry secret
-  entrypoint: mypipeline
-  templates:
-  - name: mypipeline
-    steps:
-    - - name: mypredictor
-        template: mycodeblock1
-  - name: mycodeblock1
     inputs:
       artifacts:  # placeholder for cloud storage attachements
         - name: newdata # a name for the placeholder
