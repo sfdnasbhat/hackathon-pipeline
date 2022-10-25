@@ -24,7 +24,7 @@ spec:
         minReplicas: 1    # how much to scale
         containers:
         - name: kserve-container
-          image: "docker.io/<YOUR_DOCKER_USERNAME>/house-server:01"
+          image: "docker.io/sfdnasbhat/house-server:01"
           ports:
             - containerPort: 9001    # customizable port
               protocol: TCP
