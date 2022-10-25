@@ -1,26 +1,35 @@
-apiVersion: argoproj.io/v1alpha1
-kind: WorkflowTemplate
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
 metadata:
-  name: data-pipeline # executable id, must be unique across all your workflows (YAML files)
-  annotations:
-    scenarios.ai.sap.com/description: "Learning how to ingest data to workflows"
-    scenarios.ai.sap.com/name: "predictor(Tutorial)" # Scenario name should be the use case
-    executables.ai.sap.com/description: "inference with live data"
-    executables.ai.sap.com/name: "training" # Executable name should describe the workflow in the use case
-    artifacts.ai.sap.com/housedataset.kind: "dataset" # Helps in suggesting the kind of inputs that can be attached.
+  name: predictor-pipeline # executable ID, must be unique across your SAP AI Core instance, for example use `server-pipeline-yourname-1234`
+  annotations:  
+    scenarios.ai.sap.com/description: "record duplicate check"
+    scenarios.ai.sap.com/name: "duplicate predict (Tutorial)"
+    executables.ai.sap.com/description: "Create online server to make live duplicate check"
+    executables.ai.sap.com/name: "server"
+    artifacts.ai.sap.com/housepricemodel.kind: "model" # Suggest the kind of artifact to input.
   labels:
-    scenarios.ai.sap.com/id: "learning-datalines"
+    scenarios.ai.sap.com/id: "predictor"
     ai.sap.com/version: "1.0"
+    ai.sap.com/resourcePlan: starter # computing power
 spec:
-  arguments:
-    parameters:
-      - name: message
-        value: hello world
-  templates:
-    - name: check-template
-  #imagePullSecrets:
-   # - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y# your docker registry secret
-    inputs:
-      artifacts:  # placeholder for cloud storage attachements
-        - name: newdata # a name for the placeholder
-          path: /app/data/ # where to copy in the Dataset in the Docker image
+  inputs:
+    artifacts:
+      - name: newdata # placeholder name, do not add `-` in value use only alphanumeric chars
+  template:
+    spec: |
+      predictor:
+        imagePullSecrets:
+          - name:    # your docker registry secret
+        minReplicas: 1    # how much to scale
+        containers:
+        - name: kserve-container
+          image: "docker.io/<YOUR_DOCKER_USERNAME>/house-server:01"
+          ports:
+            - containerPort: 9001    # customizable port
+              protocol: TCP
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`
+         
