@@ -41,4 +41,4 @@ spec:
               command: ["/bin/sh", "-c"]
               args:
                 - >
-                  set -e && echo "starting " && gunicorn --chdir /src main:app -b 0.0.0.0:9001
+                  set -e && echo "starting " && gunicorn --chdir  /app/src main:app -b 0.0.0.0:9001
