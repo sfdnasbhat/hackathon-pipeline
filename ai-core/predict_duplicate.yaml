@@ -12,6 +12,12 @@ metadata:
     scenarios.ai.sap.com/id: "learning-datalines"
     ai.sap.com/version: "1.0"
 spec:
+  arguments:
+    parameters:
+      - name: message
+        value: hello world
+  templates:
+    - name: check-template
   #imagePullSecrets:
    # - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y# your docker registry secret
     inputs:
