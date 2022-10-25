@@ -27,7 +27,7 @@ spec:
     inputs:
       artifacts:  # placeholder for cloud storage attachements
         - name: newdata # a name for the placeholder
-          path: /app/data/ 
+          path: /record-container/dataset-container 
     template:
     
         metadata:        
