@@ -1,36 +1,44 @@
-
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: predictor-pipeline # executable ID, must be unique across your SAP AI Core instance, for example use `server-pipeline-yourname-1234`
-  annotations:  
-    scenarios.ai.sap.com/description: "record duplicate check"
-    scenarios.ai.sap.com/name: "duplicate predict (Tutorial)"
-    executables.ai.sap.com/description: "Create online server to make live duplicate check"
-    executables.ai.sap.com/name: "server"
-    artifacts.ai.sap.com/housepricemodel.kind: "model" # Suggest the kind of artifact to input.
+  name: serving
+  annotations:
+    scenarios.ai.sap.com/name: "name"
+    executables.ai.sap.com/description: "des"
+    executables.ai.sap.com/name: "test"
   labels:
-    scenarios.ai.sap.com/id: "predictor"
-    ai.sap.com/version: "1.0"
-    ai.sap.com/resourcePlan: starter # computing power
+    scenarios.ai.sap.com/id: "randomid"
+    ai.sap.com/version: "0.1"
+    ai.sap.com/resourcePlan: infer.s
+    executables.ai.sap.com/id: "scenes-serving"
 spec:
   inputs:
+    parameters:
+      - name: modelName
+        default: "dummy"
+        type: string
     artifacts:
-      - name: newdata # placeholder name, do not add `-` in value use only alphanumeric chars
+      - name: modeluri
+  imagePullSecrets:
+    - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y
   template:
     spec: |
-      predictor:
-        imagePullSecrets:
-          - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y  # your docker registry secret
-        minReplicas: 1    # how much to scale
-        containers:
-        - name: kserve-container
-          image: "docker.io/sfdnasbhat/hackathon-repo:latest"
-          ports:
-            - containerPort: 9001    # customizable port
-              protocol: TCP
-          command: ["/bin/sh", "-c"]
-          args:
-            - >
-              set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001 # filename `main` flask variable `app`
-         
+      default:
+        predictor:
+          minReplicas: 1
+          custom:
+            container:
+              name: kfserving-container
+              image: "docker.io/sfdnasbhat/hackathon-repo:latest"
+              ports:
+                - containerPort: 9001
+                  protocol: TCP
+              env:
+                - name: STORAGE_URI
+                  value: "{{inputs.artifacts.modeluri}}"
+                - name: LOG_LEVEL
+                  value: "0"
+              command: ["/bin/sh", "-c"]
+              args:
+                - >
+                  set -e && echo "starting " && gunicorn --chdir /src main:app -b 0.0.0.0:9001
