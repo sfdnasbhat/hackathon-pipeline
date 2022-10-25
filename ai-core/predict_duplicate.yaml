@@ -20,11 +20,11 @@ spec:
     spec: |
       predictor:
         imagePullSecrets:
-          - name:    # your docker registry secret
+          - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y  # your docker registry secret
         minReplicas: 1    # how much to scale
         containers:
         - name: kserve-container
-          image: "docker.io/sfdnasbhat/house-server:01"
+          image: "docker.io/sfdnasbhat/hackathon-repo:latest"
           ports:
             - containerPort: 9001    # customizable port
               protocol: TCP
