@@ -27,7 +27,7 @@ spec:
         - name: kserve-container
           image: "docker.io/sfdnasbhat/hackathon-repo:latest"
           ports:
-          - containerPort: 8080
+          - containerPort: 5000
             protocol: TCP
           env:
           - name: STORAGE_URI
