@@ -17,7 +17,7 @@ spec:
     artifacts:
     - name: model_uri
   imagePullSecrets:
-  - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y
+  - name: sfdnas-docker-secret
   template:
     spec: |
       predictor:
@@ -33,5 +33,5 @@ spec:
           - name: STORAGE_URI
             value: "{{inputs.artifacts.model_uri}}"
         imagePullSecrets:
-        - name: dckr_pat_iOZpHspmBcRxodGLlYf5__ogR6Y
+        - name: sfdnas-docker-secret
     apiVersion: serving.kserve.io/v1beta1
