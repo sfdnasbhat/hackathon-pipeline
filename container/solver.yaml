@@ -1,7 +1,7 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: test-scenario-serving
+  name: test-scenario1
   annotations:
     scenarios.ai.sap.com/description: "just a test scenario"
     scenarios.ai.sap.com/name: "testing-cap"
@@ -9,7 +9,7 @@ metadata:
     executables.ai.sap.com/name: "test-scenario"
     executables.ai.sap.com/id: "test-scenario-serving-v1"
   labels:
-    scenarios.ai.sap.com/id: "test-scenario"
+    scenarios.ai.sap.com/id: "test-scenario1"
     ai.sap.com/version: 0.0.1
     ai.sap.com/resourcePlan: infer.m
 spec:
