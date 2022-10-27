@@ -11,7 +11,7 @@ metadata:
   labels:
     scenarios.ai.sap.com/id: "test-nagesh"
     ai.sap.com/version: 0.0.1
-    ai.sap.com/resourcePlan: ai.sap.com/resourcePlan: basic
+    ai.sap.com/resourcePlan: basic
 spec:
   inputs:
     artifacts:
