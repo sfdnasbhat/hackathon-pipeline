@@ -25,10 +25,14 @@ spec:
         maxReplicas: 2
         containers:
         - name: kserve-container
-          image: "docker.io/sfdnasbhat/predictor:02"
+          image: "docker.io/sfdnasbhat/predict-server:02"
           ports:
-          - containerPort: 5000
+          - containerPort: 9001
             protocol: TCP
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              set -e && echo "Starting" && gunicorn --chdir /app/src main:app -b 0.0.0.0:9001
           env:
           - name: STORAGE_URI
             value: "{{inputs.artifacts.model_uri}}"
