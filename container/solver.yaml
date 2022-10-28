@@ -32,7 +32,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
              - >
-               - "python /app/src/main.py"
+               set -e && echo "Starting" --chdir /app/src main:app -b 0.0.0.0:5000
           env:
           - name: STORAGE_URI
             value: "{{inputs.artifacts.model_uri}}"
