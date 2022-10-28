@@ -27,7 +27,7 @@ spec:
         - name: kserve-container
           image: "docker.io/sfdnasbhat/predictor:02"
           ports:
-          - containerPort: 09712acd08c8
+          - containerPort: 5000
             protocol: TCP
           env:
           - name: STORAGE_URI
