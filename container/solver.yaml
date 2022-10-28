@@ -25,14 +25,14 @@ spec:
         maxReplicas: 2
         containers:
         - name: kserve-container
-          image: "docker.io/sfdnasbhat/hackathon-repo:latest"
+          image: "docker.io/sfdnasbhat/predictor:01"
           ports:
           - containerPort: 5000
             protocol: TCP
           command: ["/bin/sh", "-c"]
           args:
              - >
-               set -e && echo "Starting" --chdir /app/src main:app -b 0.0.0.0:5000
+               set -e && echo "starting " && gunicorn --chdir  /app/src main:app -b 0.0.0.0:5000
           env:
           - name: STORAGE_URI
             value: "{{inputs.artifacts.model_uri}}"
