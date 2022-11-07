@@ -16,7 +16,7 @@ spec:
   inputs:
     artifacts:
     - name: model_uri
-      path: application/source
+      path: application/data
   imagePullSecrets:
   - name: sfdnas-docker-secret
   template:
@@ -26,7 +26,7 @@ spec:
         maxReplicas: 2
         containers:
         - name: kserve-container
-          image: "docker.io/sfdnasbhat/predict-server:02"
+          image: "docker.io/sfdnasbhat/predict-server:04"
           ports:
           - containerPort: 9001
             protocol: TCP
