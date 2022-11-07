@@ -16,7 +16,7 @@ spec:
   inputs:
     artifacts:
     - name: model_uri
-      path: application/source
+      path: application/data
   imagePullSecrets:
   - name: sfdnas-docker-secret
   template:
