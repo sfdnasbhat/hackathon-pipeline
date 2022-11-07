@@ -1,0 +1,42 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: infernece-scenario-serving
+  annotations:
+    scenarios.ai.sap.com/description: "just a test scenario"
+    scenarios.ai.sap.com/name: "testing"
+    executables.ai.sap.com/description: "test-scenario-descr"
+    executables.ai.sap.com/name: "test-scene"
+    executables.ai.sap.com/id: "test-scene-serving-v1"
+  labels:
+    scenarios.ai.sap.com/id: "test-scenev1"
+    ai.sap.com/version: 0.0.1
+    ai.sap.com/resourcePlan: infer.m
+spec:
+  inputs:
+    artifacts:
+    - name: model_uri
+      path: application/data
+  imagePullSecrets:
+  - name: sfdnas-docker-secret
+  template:
+    spec: |
+      predictor:
+        minReplicas: 1
+        maxReplicas: 2
+        containers:
+        - name: kserve-container
+          image: "docker.io/sfdnasbhat/predict-server:10"
+          ports:
+          - containerPort: 9001
+            protocol: TCP
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              set -e && echo "Starting" && gunicorn --chdir /application/source main:app -b 0.0.0.0:9001
+          env:
+          - name: STORAGE_URI
+            value: "{{inputs.artifacts.model_uri}}"
+        imagePullSecrets:
+        - name: sfdnas-docker-secret
+    apiVersion: serving.kserve.io/v1beta1
