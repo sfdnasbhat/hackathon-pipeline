@@ -4,7 +4,7 @@ metadata:
   name: test-scenario-servingv2
   annotations:
     scenarios.ai.sap.com/description: "just a test scenario"
-    scenarios.ai.sap.com/name: "testing-cap1"
+    scenarios.ai.sap.com/name: "testing-cap5"
     executables.ai.sap.com/description: "test-scenario-descr"
     executables.ai.sap.com/name: "test-scenario"
     executables.ai.sap.com/id: "test-scenario-serving-v1"
@@ -26,7 +26,7 @@ spec:
         maxReplicas: 2
         containers:
         - name: kserve-container
-          image: "docker.io/sfdnasbhat/predict-server:04"
+          image: "docker.io/sfdnasbhat/predict-server:05"
           ports:
           - containerPort: 9001
             protocol: TCP
