@@ -6,10 +6,10 @@ metadata:
     scenarios.ai.sap.com/description: "just a test scenario"
     scenarios.ai.sap.com/name: "testing"
     executables.ai.sap.com/description: "test-scenario-descr"
-    executables.ai.sap.com/name: "test-scenev1"
-    executables.ai.sap.com/id: "test-scene-serving-v1"
+    executables.ai.sap.com/name: "test-scenev2"
+    executables.ai.sap.com/id: "test-scene-serving-v2"
   labels:
-    scenarios.ai.sap.com/id: "test-scenev1"
+    scenarios.ai.sap.com/id: "test-scenev2"
     ai.sap.com/version: 0.0.1
     ai.sap.com/resourcePlan: infer.m
 spec:
