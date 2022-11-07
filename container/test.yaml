@@ -26,7 +26,7 @@ spec:
         maxReplicas: 2
         containers:
         - name: kserve-container
-          image: "docker.io/sfdnasbhat/predict-server:08"
+          image: "docker.io/sfdnasbhat/predict-server:09"
           ports:
           - containerPort: 9001
             protocol: TCP
