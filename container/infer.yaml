@@ -4,7 +4,7 @@ metadata:
   name: infernece-scenario-serving
   annotations:
     scenarios.ai.sap.com/description: "just a test scenario"
-    scenarios.ai.sap.com/name: "testing"
+    scenarios.ai.sap.com/name: "inference"
     executables.ai.sap.com/description: "test-scenario-descr"
     executables.ai.sap.com/name: "test-scene"
     executables.ai.sap.com/id: "test-scene-serving-v1"
